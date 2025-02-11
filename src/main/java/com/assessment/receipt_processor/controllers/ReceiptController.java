@@ -15,6 +15,8 @@ import com.assessment.receipt_processor.models.response.ReceiptPointsResponse;
 import com.assessment.receipt_processor.models.response.ReceiptResponse;
 import com.assessment.receipt_processor.services.ReceiptService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/receipts")
 public class ReceiptController {
@@ -26,7 +28,7 @@ public class ReceiptController {
     }
 
     @PostMapping("/process")
-    public ResponseEntity processReceipt (@RequestBody Receipt receipt) {
+    public ResponseEntity processReceipt (@Valid @RequestBody Receipt receipt) {
         ReceiptResponse response = receiptService.storeReceipt(receipt);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The receipt is invalid.");
